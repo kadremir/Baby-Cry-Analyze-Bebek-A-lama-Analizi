@@ -1,161 +1,200 @@
-**👶 Bebek Ağlama Sebebi Tahmin Modeli (TensorFlow)**
+# 👶 Bebek Ağlama Sebebi Tahmin Modeli (TensorFlow)
 
-KULLANILAN DATA: https://www.kaggle.com/datasets/warcoder/infant-cry-audio-corpus
+<div align="center">
+  
+![TensorFlow](https://img.shields.io/badge/TensorFlow-%23FF6F00.svg?style=for-the-badge&logo=TensorFlow&logoColor=white)
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
+![scikit-learn](https://img.shields.io/badge/scikit--learn-%23F7931E.svg?style=for-the-badge&logo=scikit-learn&logoColor=white)
+![Keras](https://img.shields.io/badge/Keras-%23D00000.svg?style=for-the-badge&logo=Keras&logoColor=white)
 
-Bu proje, TensorFlow kullanılarak geliştirilmiş ve bir bebeğin ağlama sesini analiz ederek altı farklı kategoriye ayırmayı amaçlayan bir makine öğrenimi modelini içerir:
+</div>
 
-* belly\_pain
-* burping
-* discomfort
-* hungry
-* tired
-* Background\_Noise
+## 📋 Proje Hakkında
+Bebeklerin ağlama seslerini yapay zeka ile analiz ederek **neden ağladıklarını tahmin eden** bir derin öğrenme modeli.
 
-Model, ses dosyalarından MFCC (Mel Frekans Kepstral Katsayıları) ve türevleri ile özellik çıkarımı yaparak eğitilmiştir.
+### Kullanılan Veri Seti
+[![Kaggle](https://img.shields.io/badge/Kaggle-20BEFF?style=for-the-badge&logo=Kaggle&logoColor=white)](https://www.kaggle.com/datasets/warcoder/infant-cry-audio-corpus)
 
----
+### Tahmin Edilen Ağlama Sebepleri
+- 🤕 **Karın Ağrısı** (belly_pain)
+- 🫧 **Gaz Çıkarma İhtiyacı** (burping)
+- 😣 **Rahatsızlık** (discomfort)
+- 🍼 **Açlık** (hungry)
+- 😴 **Yorgunluk** (tired)
+- 🔇 **Arka Plan Gürültüsü** (Background_Noise)
 
-**⚠️ Önemli Bilgilendirme**
+## 🔍 Teknik Detaylar
+Model, ses dosyalarından **MFCC (Mel Frekans Kepstral Katsayıları)** ve türevlerini kullanarak özellik çıkarımı yapar ve derin öğrenme ile sınıflandırma gerçekleştirir.
 
-Modelin altyapısı tamamen hazırdır, ancak şu an kullanılan eğitim veri setinde sınıflar arasında ciddi dengesizlik vardır. Özellikle `hungry` sınıfına ait örneklerin fazlalığı, modelin bu sınıfa aşırı odaklanmasına ve diğer sınıfları doğru şekilde ayırt edememesine neden olmaktadır.
+## ⚠️ Önemli Bilgilendirme
 
-Gözlemlerimize göre:
+<table>
+<tr>
+<td>
+Model altyapısı tamamen hazır olmasına rağmen, şu an kullanılan eğitim veri setinde sınıflar arasında ciddi dengesizlik bulunmaktadır. Özellikle <code>hungry</code> sınıfındaki örneklerin fazlalığı, modelin bu sınıfa aşırı odaklanmasına neden olmaktadır.
 
-* hungry verileri eksiltilmeden model eğitildiğinde, test sonuçları büyük oranda bu sınıfa yöneliyor.
-* Diğer sınıfların tahmin değerleri sıfıra kadar düşüyor.
-* Uygun sayıda ve dengeli veri içeren bir set ile eğitildiğinde modelin çok daha yüksek doğrulukla çalışacağı öngörülmektedir.
+**Gözlemlerimiz:**
+- Hungry verileri dengelenmeden eğitildiğinde, tahminler bu sınıfa yönelmekte
+- Diğer sınıfların tahmin oranları düşük kalmakta
+- Dengeli veri setiyle eğitildiğinde doğruluk oranı artmaktadır
+</td>
+</tr>
+</table>
 
----
+## 📁 Proje Yapısı
 
-**📂 Proje Yapısı**
+```
+├── bebek_aglama_tensorflow.py         # Model eğitimi ve veri artırma
+├── bebek_aglama_tensorflow_test_script.py  # Test ve değerlendirme 
+├── saved_models/                      # Model dosyaları
+├── tensor_egitim_verisi/              # Eğitim ses dosyaları
+├── tensor_test_verisi/                # Test ses dosyaları  
+└── verisetim/                         # Sınıflandırılmış ses dosyaları
+```
 
-bebek\_aglama\_tensorflow\.py → Model eğitimi, veri artırma ve TFLite dönüştürme
-bebek\_aglama\_tensorflow\_test\_script.py → Eğitilen modelin test edilmesi ve raporlanması
-saved\_models/ → Model ağırlıkları, scaler ve özellik seçim dosyaları
-tensor eğitim verisi/ → Eğitim sırasında kullanılan ses verileri
-tensor test verisi/ → Test sırasında kullanılan ses verileri
-verisetim/ → Sınıflandırmaya göre yapılandırılmış ses klasörleri
+## 🚀 Kullanım
 
----
+### 1. Gereksinimlerin Kurulumu
 
-**🚀 Kullanım Talimatları**
+```bash
+pip install librosa tensorflow scikit-learn audiomentations seaborn matplotlib
+```
 
-1. Gereksinimler:
-   pip install librosa tensorflow scikit-learn audiomentations seaborn matplotlib
+### 2. Model Eğitimi
 
-2. Modeli Eğitme:
-   python bebek\_aglama\_tensorflow\.py
+```bash
+python bebek_aglama_tensorflow.py
+```
 
-* MFCC tabanlı özellik çıkarımı yapılır
-* Veri artırma uygulanır
-* Model eğitilir ve saved\_models klasörüne kaydedilir
+- MFCC tabanlı özellik çıkarımı yapılır
+- Ses artırma teknikleri uygulanır
+- Model eğitilir ve kaydedilir
 
-3. Modeli Test Etme:
-   python bebek\_aglama\_tensorflow\_test\_script.py
+### 3. Model Testi
 
-* Sınıflandırma raporu ve confusion matrix görselleştirilir
+```bash
+python bebek_aglama_tensorflow_test_script.py
+```
 
----
+- Sınıflandırma raporunu gösterir
+- Karışıklık matrisini görselleştirir
 
-**📈 Geliştirme Önerileri**
+## 📊 Performans İyileştirme Önerileri
 
-* Veri dengesi sağlanmalı
-* Gelişmiş augmentasyon teknikleri uygulanabilir
-* LSTM, GRU, Attention gibi modeller denenebilir
-* Hiperparametre ayarlamaları yapılmalıdır
+| İyileştirme | Açıklama |
+|------------|-----------|
+| 📊 **Veri Dengesi** | Sınıflar arasındaki örnek sayısı dengelenmeli |
+| 🔄 **Gelişmiş Veri Artırma** | Çeşitli ses dönüşüm teknikleri uygulanabilir |
+| 🧠 **Model Mimarisi** | LSTM, GRU, Attention gibi yapılar denenebilir |
+| ⚙️ **Hiperparametreler** | Grid Search veya Bayesian optimizasyon uygulanabilir |
 
----
+## 📥 Veri Seti
 
-**📥 Veri Seti Talebi**
+Veri seti ve eğitilmiş model dosyaları talep üzerine paylaşılabilir. Dengeli veri setiyle model performansı önemli ölçüde artmaktadır.
 
-Veri seti talebi üzerine paylaşılabilir. Dengeli veriyle model çok daha iyi performans göstermektedir.
+## 📄 Lisans
 
----
-
-**📝 Lisans**
-
-Bu proje MIT Lisansı ile lisanslanmıştır.
-
----
-
----
-
-**👶 Baby Cry Reason Classification Model (TensorFlow)**
-
-USED DATA: https://www.kaggle.com/datasets/warcoder/infant-cry-audio-corpus
-
-This project features a machine learning model developed with TensorFlow, aiming to classify a baby's cry sound into six different categories:
-
-* belly\_pain
-* burping
-* discomfort
-* hungry
-* tired
-* Background\_Noise
-
-The model is trained using MFCC (Mel Frequency Cepstral Coefficients) and its derivatives for feature extraction from audio files.
-
----
-
-**⚠️ Important Notice**
-
-The model infrastructure is fully operational. However, the current training dataset suffers from significant class imbalance. Especially, the abundance of samples in the `hungry` class causes the model to overfit on it and fail to distinguish other classes accurately.
-
-Our observations:
-
-* When trained without balancing, predictions mostly lean toward the `hungry` class.
-* Other classes’ prediction rates drop nearly to zero.
-* A more balanced dataset is expected to significantly improve model performance.
+Bu proje [MIT Lisansı](https://opensource.org/licenses/MIT) ile lisanslanmıştır.
 
 ---
 
-**📂 Project Structure**
+<details>
+<summary>English Version</summary>
 
-bebek\_aglama\_tensorflow\.py → Training the model, augmentation, and TFLite conversion
-bebek\_aglama\_tensorflow\_test\_script.py → Testing and evaluating the trained model
-saved\_models/ → Model weights, scaler, and feature selection files
-tensor eğitim verisi/ → Training audio files
-tensor test verisi/ → Testing audio files
-verisetim/ → Sound files organized by class folders
+# 👶 Baby Cry Reason Classification Model (TensorFlow)
 
----
+<div align="center">
+  
+![TensorFlow](https://img.shields.io/badge/TensorFlow-%23FF6F00.svg?style=for-the-badge&logo=TensorFlow&logoColor=white)
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
+![scikit-learn](https://img.shields.io/badge/scikit--learn-%23F7931E.svg?style=for-the-badge&logo=scikit-learn&logoColor=white)
+![Keras](https://img.shields.io/badge/Keras-%23D00000.svg?style=for-the-badge&logo=Keras&logoColor=white)
 
-**🚀 Instructions**
+</div>
 
-1. Requirements:
-   pip install librosa tensorflow scikit-learn audiomentations seaborn matplotlib
+## 📋 About the Project
+A deep learning model that analyzes baby cry sounds to **predict why they're crying**.
 
-2. Training the Model:
-   python bebek\_aglama\_tensorflow\.py
+### Dataset Used
+[![Kaggle](https://img.shields.io/badge/Kaggle-20BEFF?style=for-the-badge&logo=Kaggle&logoColor=white)](https://www.kaggle.com/datasets/warcoder/infant-cry-audio-corpus)
 
-* Extracts MFCC features
-* Applies audio augmentation
-* Trains and saves the model into saved\_models/
+### Predicted Crying Reasons
+- 🤕 **Belly Pain** (belly_pain)
+- 🫧 **Burping Needed** (burping)
+- 😣 **Discomfort** (discomfort)
+- 🍼 **Hunger** (hungry)
+- 😴 **Tiredness** (tired)
+- 🔇 **Background Noise** (Background_Noise)
 
-3. Testing the Model:
-   python bebek\_aglama\_tensorflow\_test\_script.py
+## 🔍 Technical Details
+The model extracts features using **MFCC (Mel Frequency Cepstral Coefficients)** and its derivatives from audio files and performs classification with deep learning.
 
-* Generates classification report and visualizes confusion matrix
+## ⚠️ Important Notice
 
----
+<table>
+<tr>
+<td>
+While the model infrastructure is fully operational, the current training dataset has significant class imbalance. Especially the abundance of samples in the <code>hungry</code> class causes the model to focus excessively on this class.
 
-**📈 Suggestions for Improvement**
+**Our observations:**
+- When trained without balancing, predictions tend toward the hungry class
+- Other classes' prediction rates remain low
+- Accuracy increases significantly with a balanced dataset
+</td>
+</tr>
+</table>
 
-* Balance the dataset
-* Apply advanced augmentation techniques
-* Experiment with LSTM, GRU, or Attention-based models
-* Optimize hyperparameters
+## 📁 Project Structure
 
----
+```
+├── bebek_aglama_tensorflow.py         # Model training and augmentation
+├── bebek_aglama_tensorflow_test_script.py  # Testing and evaluation 
+├── saved_models/                      # Model files
+├── tensor_egitim_verisi/              # Training audio files
+├── tensor_test_verisi/                # Test audio files  
+└── verisetim/                         # Classified audio files
+```
 
-**📥 Dataset Request**
+## 🚀 Usage
 
-The dataset used for training and testing can be shared upon request. With balanced data, this infrastructure provides significantly better accuracy.
+### 1. Install Requirements
 
----
+```bash
+pip install librosa tensorflow scikit-learn audiomentations seaborn matplotlib
+```
 
-**📝 License**
+### 2. Train the Model
 
-This project is licensed under the MIT License.
+```bash
+python bebek_aglama_tensorflow.py
+```
 
----
+- Performs MFCC-based feature extraction
+- Applies audio augmentation techniques
+- Trains and saves the model
+
+### 3. Test the Model
+
+```bash
+python bebek_aglama_tensorflow_test_script.py
+```
+
+- Shows classification report
+- Visualizes confusion matrix
+
+## 📊 Performance Improvement Suggestions
+
+| Improvement | Description |
+|------------|-----------|
+| 📊 **Data Balance** | Balance sample counts between classes |
+| 🔄 **Advanced Augmentation** | Apply various audio transformation techniques |
+| 🧠 **Model Architecture** | Experiment with LSTM, GRU, Attention structures |
+| ⚙️ **Hyperparameters** | Apply Grid Search or Bayesian optimization |
+
+## 📥 Dataset
+
+The dataset and trained model files can be shared upon request. Model performance significantly increases with a balanced dataset.
+
+## 📄 License
+
+This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
