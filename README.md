@@ -1,5 +1,3 @@
----
-
 **👶 Bebek Ağlama Sebebi Tahmin Modeli (TensorFlow)**
 
 Bu proje, TensorFlow kullanılarak geliştirilmiş ve bir bebeğin ağlama sesini analiz ederek altı farklı kategoriye ayırmayı amaçlayan bir makine öğrenimi modelini içerir:
