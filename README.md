@@ -1,4 +1,5 @@
 **👶 Bebek Ağlama Sebebi Tahmin Modeli (TensorFlow)**
+
 KULLANILAN DATA: https://www.kaggle.com/datasets/warcoder/infant-cry-audio-corpus
 Bu proje, TensorFlow kullanılarak geliştirilmiş ve bir bebeğin ağlama sesini analiz ederek altı farklı kategoriye ayırmayı amaçlayan bir makine öğrenimi modelini içerir:
 
@@ -79,6 +80,7 @@ Bu proje MIT Lisansı ile lisanslanmıştır.
 ---
 
 **👶 Baby Cry Reason Classification Model (TensorFlow)**
+
 USED DATA: https://www.kaggle.com/datasets/warcoder/infant-cry-audio-corpus
 This project features a machine learning model developed with TensorFlow, aiming to classify a baby's cry sound into six different categories:
 
