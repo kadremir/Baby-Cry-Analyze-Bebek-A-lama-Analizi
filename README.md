@@ -27,14 +27,19 @@ Bebeklerin ağlama seslerini yapay zeka ile analiz ederek **neden ağladıkları
 Model, ses dosyalarından **MFCC (Mel Frekans Kepstral Katsayıları)** ve türevlerini kullanarak özellik çıkarımı yapar ve derin öğrenme ile sınıflandırma gerçekleştirir.
 
 ## ⚠️ Önemli Bilgilendirme
+## (Veriler Eşitlenmeden Önce/Before the data is synchronized)
+![WhatsApp Görsel 2025-05-18 saat 01 45 22_4bc74d6f](https://github.com/user-attachments/assets/bc4caf3f-d02f-45e0-bd23-9c99ff1982a2)
+
+## (Veriler Eşitlendikten Sonra/After the data is synchronized)
+![WhatsApp Görsel 2025-05-18 saat 01 13 57_8ef48887](https://github.com/user-attachments/assets/d3a71861-d608-4564-afe8-f54bab57d484)
 
 <table>
 <tr>
 <td>
-Model altyapısı tamamen hazır olmasına rağmen, şu an kullanılan eğitim veri setinde sınıflar arasında ciddi dengesizlik bulunmaktadır. Özellikle <code>hungry</code> sınıfındaki örneklerin fazlalığı, modelin bu sınıfa aşırı odaklanmasına neden olmaktadır.
+Model altyapısı tamamen hazır olmasına rağmen, şu an kullanılan eğitim veri setinde sınıflar arasında ciddi dengesizlik bulunmaktadır. Özellikle <code>hungry</code> <code>discomfort</code> sınıfındaki örneklerin fazlalığı, modelin bu sınıfa aşırı odaklanmasına neden olmaktadır.
 
 **Gözlemlerimiz:**
-- Hungry verileri dengelenmeden eğitildiğinde, tahminler bu sınıfa yönelmekte
+- Hungry ve Discomfort verileri dengelenmeden eğitildiğinde, tahminler bu sınıfa yönelmekte
 - Diğer sınıfların tahmin oranları düşük kalmakta
 - Dengeli veri setiyle eğitildiğinde doğruluk oranı artmaktadır
 </td>
@@ -134,10 +139,10 @@ The model extracts features using **MFCC (Mel Frequency Cepstral Coefficients)**
 <table>
 <tr>
 <td>
-While the model infrastructure is fully operational, the current training dataset has significant class imbalance. Especially the abundance of samples in the <code>hungry</code> class causes the model to focus excessively on this class.
+While the model infrastructure is fully operational, the current training dataset has significant class imbalance. Especially the abundance of samples in the <code>hungry</code> <code>discomfort</code> class causes the model to focus excessively on this class.
 
 **Our observations:**
-- When trained without balancing, predictions tend toward the hungry class
+- When trained without balancing, predictions tend toward the hungry and discomfort class
 - Other classes' prediction rates remain low
 - Accuracy increases significantly with a balanced dataset
 </td>
