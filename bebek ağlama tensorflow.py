@@ -31,7 +31,7 @@ def focal_loss(alpha=0.25, gamma=1.5):
     return loss_fn
 
 # Settings
-DATASET_PATH = "C:/Users/kadir/OneDrive/Masaüstü/tensor eğitim verisi/donateacry_corpus"
+DATASET_PATH = "VERİ SETİ YOLU(DATASET_PATH)"
 LABELS = ["belly_pain", "burping", "discomfort", "hungry", "Background_Noise", "tired"]
 SAMPLE_RATE = 22050
 FIXED_DURATION = 2.0
